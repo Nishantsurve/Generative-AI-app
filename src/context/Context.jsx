@@ -1,10 +1,9 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import run from "../config/gemini";
-
+import axios from "axios";
 export const Context =createContext();
 
 const ContextProvider = (props)=>{
-
   
      const [input,setInput] = useState("");
      const [recentPrompt,setRecentPrompt] = useState("");
@@ -12,6 +11,13 @@ const ContextProvider = (props)=>{
      const [showResult, setShowResult] = useState(false);
      const [loading, setLoading] = useState(false);
      const [resultData, setResultData] = useState("");
+
+     useEffect(() => {
+        const fetchResponses = async () => {
+            const res = await axios.get('/responses');
+            setPrevPrompts(res.data);
+        }
+     },[]);
 
      const delayPara = (index,nextWord) => {
       setTimeout(() => {
@@ -78,6 +84,7 @@ const ContextProvider = (props)=>{
             setRecentPrompt(input);
             response = await run(input);
         }
+
     
         // Splitting and formatting the response
         let responsearray = response.split("**");
@@ -97,6 +104,12 @@ const ContextProvider = (props)=>{
         let formattedResponse1 = newArray2.replace(/(\d+\.\s)/g, "<br/>$1");
         let formattedResponse2 = formattedResponse1.split("//").join("<br/>");
         let newresponsearray = formattedResponse2.split(" ");
+        
+        const storeResponse = await axios.post('/responses', {
+            prompt: prompt,
+            response: newresponsearray
+        });
+
         for (let i = 0; i < newresponsearray.length; i++) {
             const nextWord = newresponsearray[i];
             delayPara(i, nextWord + " ");
