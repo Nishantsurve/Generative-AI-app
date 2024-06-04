@@ -26,19 +26,19 @@ const Main = () => {
 
             <div className="cards">
                 <div className="card">
-                    <p>Lorem ipsum doloia nesciunt minus quam error omnis,</p>
+                    <p>give me script/code in python or any language</p>
                     <img src={assets.compass_icon} alt="" />
                 </div>
                 <div className="card">
-                    <p>Lorem ipsum doloia nesciunt minus quam error omnis,</p>
+                    <p>write an article about stock market</p>
                     <img src={assets.bulb_icon} alt="" />
                 </div>
                 <div className="card">
-                    <p>Lorem ipsum doloia nesciunt minus quam error omnis,</p>
+                    <p>Tell me a fun fact</p>
                     <img src={assets.message_icon} alt="" />
                 </div>
                 <div className="card">
-                    <p>Lorem ipsum doloia nesciunt minus quam error omnis,</p>
+                    <p>Draf an email</p>
                     <img src={assets.code_icon} alt="" />
                 </div>
             </div>
@@ -76,9 +76,12 @@ const Main = () => {
                     <div>
                         <img src={assets.gallery_icon} alt="" />
                         <img src={assets.mic_icon} alt="" />
-                        <img 
+                       {input?<img 
                         onClick={()=>onSent()}
                         src={assets.send_icon} alt="" />
+                    :
+                       null
+                    }
                     </div>
                 </div>
                 <p className='bottom-info'>
