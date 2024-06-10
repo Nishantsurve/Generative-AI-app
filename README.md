@@ -4,8 +4,13 @@
 
 Fork this repository and clone into local machine using git clone command.
 
-First install necessary dependency by running
+First install necessary dependency by running 
+<br>
+
+```bash
 npm install
+
+```
 
 Then run the development server:
 
