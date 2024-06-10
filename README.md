@@ -1,11 +1,13 @@
 # Generative-AI-app
 
-![alt text](<Screenshot (360)-1.png>)
-![alt text](<Screenshot (361)-1.png>)
-
 ## Getting Started
 
-First, run the development server:
+Fork this repository and clone into local machine using git clone command.
+
+First install necessary dependency by running
+npm install
+
+Then run the development server:
 
 ```bash
 npm run dev
@@ -17,6 +19,6 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:5173) with your browser to see the result.
+Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
 
 
