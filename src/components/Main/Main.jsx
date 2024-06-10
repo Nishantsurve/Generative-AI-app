@@ -2,16 +2,33 @@ import React, { useContext } from 'react'
 import  './Main.css';
 import { assets } from '../../assets/assets';
 import { Context } from '../../context/Context';
+import axios from 'axios';
 
 const Main = () => {
 
     const {onSent,recentPrompt,showResult,resultData,loading,setInput,input} = useContext(Context);
 
+
+     const handleSend = () =>{
+        axios.post('http://your-server/insert_prompt.php', { prompt: input })
+        .then(response => {
+            console.log(response.data);
+            // Optionally handle success (e.g., clear input, show message)
+            setInput('');
+        })
+        .catch(error => {
+            console.error('There was an error inserting the prompt!', error);
+        });
+    
+    // Call existing onSent function if needed
+    onSent();
+     }
+
   return (
     <div className='main'>
         <div className="nav">
             <p>Gemini</p>
-            <img src={assets.prompt_icon} alt="" />
+            <img src={assets.user_icon1} alt="" />
         </div>
 
          <div className="main-container">
@@ -77,7 +94,7 @@ const Main = () => {
                         <img src={assets.gallery_icon} alt="" />
                         <img src={assets.mic_icon} alt="" />
                        {input?<img 
-                        onClick={()=>onSent()}
+                        onClick={handleSend}
                         src={assets.send_icon} alt="" />
                     :
                        null

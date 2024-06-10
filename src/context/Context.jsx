@@ -12,11 +12,18 @@ const ContextProvider = (props)=>{
      const [loading, setLoading] = useState(false);
      const [resultData, setResultData] = useState("");
 
+     const API_URL = 'http://localhost/myapi/responses';
+
      useEffect(() => {
         const fetchResponses = async () => {
-            const res = await axios.get('/responses');
-            setPrevPrompts(res.data);
+            try {
+                const res = await axios.get(`${API_URL}/getResponses.php`);
+                setPrevPrompts(res.data);
+            } catch (error) {
+                console.error('Error fetching responses:', error);
+            }
         }
+        fetchResponses();
      },[]);
 
      const delayPara = (index,nextWord) => {
@@ -29,6 +36,7 @@ const ContextProvider = (props)=>{
         setLoading(false);
         setShowResult(false);
     }
+    
 /*
      const onSent = async (prompt)=>{
         setResultData("");
@@ -105,10 +113,12 @@ const ContextProvider = (props)=>{
         let formattedResponse2 = formattedResponse1.split("//").join("<br/>");
         let newresponsearray = formattedResponse2.split(" ");
         
-        const storeResponse = await axios.post('/responses', {
-            prompt: prompt,
+     //   await axios.post(`${API_URL}/addResponse.php`, { prompt: recentPrompt, response: newresponsearray});
+
+      /*  await axios.post('/responses', {
+            prompt: input,
             response: newresponsearray
-        });
+        });*/
 
         for (let i = 0; i < newresponsearray.length; i++) {
             const nextWord = newresponsearray[i];
